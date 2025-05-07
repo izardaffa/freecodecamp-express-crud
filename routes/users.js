@@ -20,11 +20,71 @@ let users = [
 ];
 
 // Getting the list of users from the mock database
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     tags: [Users]
+ *     summary: Retrieve a list of users
+ *     responses:
+ *       200:
+ *         description: A list of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   first_name:
+ *                     type: string
+ *                     example: John
+ *                   last_name:
+ *                     type: string
+ *                     example: Doe
+ *                   email:
+ *                     type: string
+ *                     example: johndoe@email.com
+ *                   id:
+ *                     type: string
+ *                     example: uuid
+ */
 router.get('/', (req, res) => {
     res.send(users);
 });
 
 // Post Create User
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     tags: [Users]
+ *     summary: Add user data
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *          schema:
+ *           type: object
+ *           properties:
+ *             first_name:
+ *               type: string
+ *               example: John
+ *             last_name:
+ *               type: string
+ *               example: Doe
+ *             email:
+ *               type: string
+ *               example: johndoe@email.com
+ *     responses:
+ *       200:
+ *         description: User data added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: String
+ *               example: John has been added to the database.
+ */
 router.post('/', (req, res) => {
     const user = req.body;
 
@@ -37,6 +97,43 @@ router.post('/', (req, res) => {
 });
 
 // Get Data By ID
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     tags: [Users]
+ *     summary: Retrieve user data by ID
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        description: The ID of the user to retrieve
+ *        schema:
+ *          type: string
+ *          example: cb1e42c9-8914-494f-961c-77a5dde8429c
+ *     responses:
+ *       200:
+ *         description: User data added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 first_name:
+ *                   type: string
+ *                   example: John
+ *                 last_name:
+ *                   type: string
+ *                   example: Doe
+ *                 email:
+ *                   type: string
+ *                   example: johndoe@email.com
+ *                 id:
+ *                   type: string
+ *                   example: uuid
+ *       404:
+ *         description: User not found
+ */
 router.get('/:id', (req, res) => {
     const { id } = req.params;
 
@@ -50,6 +147,30 @@ router.get('/:id', (req, res) => {
 });
 
 // Delete Data By ID
+/**
+ * @swagger
+ * /users/{id}:
+ *   delete:
+ *     tags: [Users]
+ *     summary: Delete a user by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: John's data deleted successfully from database.
+ *       404:
+ *         description: User not found
+ */
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
 
@@ -64,6 +185,46 @@ router.delete('/:id', (req, res) => {
 });
 
 // Update Data
+/**
+ * @swagger
+ * /users/{id}:
+ *   patch:
+ *     tags: [Users]
+ *     summary: Update a user by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               first_name:
+ *                 type: string
+ *                 example: John
+ *               last_name:
+ *                 type: string
+ *                 example: Doe
+ *               email:
+ *                 type: string
+ *                 example: johndoe@email.com
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: User with the {id} has been updated.
+ *       404:
+ *         description: User not found
+ */
 router.patch('/:id', (req, res) => {
     const { id } = req.params;
 
